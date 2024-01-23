@@ -1,52 +1,102 @@
 <div>
     <form method="POST" action="{{ route('register') }}">
         @csrf
-
-        <!-- Name -->
-        <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
-        </div>
-
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
-
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
-
-            <x-primary-button class="ms-4">
-                {{ __('Register') }}
-            </x-primary-button>
+        <div class="row gy-2">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <input wire:model.lazy="name" class="form-control" id="name" type="text" name="name"
+                    value="{{ old('name') }}" required autofocus autocomplete="name" placeholder="Nombre">
+                    @error('name')
+                        <div id="name" class="text-invalid">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <input wire:model.lazy="email" class="form-control" id="email" type="email" name="email"
+                    value="{{ old('email') }}" required autofocus autocomplete="username" placeholder="Email">
+                    @error('email')
+                        <div id="email" class="text-invalid">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>        
+            </div> 
+            <div class="col-md-6">
+                <div class="form-group">
+                    <input wire:model.lazy="password" class="form-control" id="password" type="password" name="password"
+                    value="{{ old('password') }}" required autocomplete="new-password" placeholder="Contraseña">
+                    @error('password')
+                        <div id="password" class="text-invalid">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <input wire:model.lazy="password_confirmation" class="form-control" id="password_confirmation"type="password"
+                    name="password_confirmation" value="{{ old('password_confirmation') }}" required autocomplete="new-password" 
+                    placeholder="Confirmar">
+                    @error('password_confirmation')
+                        <div id="password_confirmation" class="text-invalid">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <select wire:model.lazy="ciudad" name="ciudad" id="ciudad" class="form-control">
+                        <option value="">Ciudad</option>
+                        @foreach ($ciudades as $ciudad)
+                            <option value="{{ $ciudad->id }}">{{ $ciudad->description }}</option>
+                        @endforeach
+                    </select>
+                    @error('ciudad')
+                        <div id="ciudad" class="text-invalid">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <select wire:model.lazy="rol" name="rol" id="rol" class="form-control">
+                        <option value="">Rol</option>
+                        @foreach ($roles as $rol)
+                            <option value="{{ $rol->id }}">{{ $rol->description }}</option>
+                        @endforeach
+                    </select>
+                    @error('rol')
+                        <div id="rol" class="text-invalid">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <select wire:model.lazy="estado" name="estado" id="estado" class="form-control">
+                        <option value="">Estado</option>
+                        @foreach ($estados as $estado)
+                            <option value="{{ $estado->id }}">{{ $estado->description }}</option>
+                        @endforeach
+                    </select>
+                    @error('estado')
+                        <div id="estado" class="text-invalid">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+            </div>
+            <div class="col-md-12 text-center">
+                <div class="form-group">
+                    <button class="btn btn-primary">Registrar</button>
+                </div>
+            </div>
         </div>
     </form>
 </div>

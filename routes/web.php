@@ -1,8 +1,9 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Route; 
+use App\Http\Controllers\ModulosController;
+ 
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,7 +16,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function (){
-    dd("HOla");
-})->middleware('auth');
+    return view('dashboard');
+})->middleware('auth')->name('home');
+
+Route::get('/ejecucion-actividad', [ModulosController::class, 'showModuloEjecucion'])->middleware('auth')->name('ejecucion');
 
 require __DIR__.'/auth.php';

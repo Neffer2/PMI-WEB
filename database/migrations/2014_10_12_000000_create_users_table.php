@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->foreignId('ciudad_id'); 
             $table->foreign('ciudad_id')->references('id')->on('ciudades');
-            $table->foreignId('rol_id');
+            $table->foreignId('rol_id')->default(2);
             $table->foreign('rol_id')->references('id')->on('roles');
             $table->foreignId('estado_id'); 
             $table->foreign('estado_id')->references('id')->on('estados');

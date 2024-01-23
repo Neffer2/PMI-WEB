@@ -1,17 +1,26 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
-
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    {{ __("You're logged in!") }}
-                </div>
+@extends('layouts.dashboard')
+    @section('styles')
+        {{ asset('css/sections.css') }}
+    @endsection
+    @section('content')
+        <div class="row section-container">
+            <div class="col-md-6 text-center">
+                <a href="{{ route('ejecucion') }}" class="link-mutted">
+                    <div class="card section">
+                        <div class="card-body">
+                            <h2><b>EJECUCI&Oacute;N DE LA ACTIVIDAD</b></h2>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-6 text-center">
+                <a href="#" class="link-mutted">
+                    <div class="card section">
+                        <div class="card-body">
+                            <h2><b>VENTAS ABORDAJE</b></h2>
+                        </div>
+                    </div>
+                </a>
             </div>
         </div>
-    </div>
-</x-app-layout>
+    @endsection
