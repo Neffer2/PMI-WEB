@@ -7,9 +7,8 @@
                     <select id="punto" wire:model.lazy="punto" class="form-control">
                         <option value="">Seleccionar</option>
                         @foreach ($puntos as $punto)
-                            <option value="{{ $punto->id }}">{{ $punto->description }}</option>
+                            <option value="{{ $punto->id }}">{{ $punto->descripcion }}</option>
                         @endforeach
-                        <option value="1">Punto</option>
                     </select>
                     @error('punto')
                         <div id="punto" class="text-invalid">

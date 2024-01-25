@@ -3,8 +3,10 @@
 namespace App\Livewire\Modulos;
 
 use Livewire\Component;
-use App\Models\Punto;
-use Livewire\WithFileUploads; 
+use App\Models\Punto; 
+use App\Models\EjecucionActividad;
+use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Auth;
 
 class Ejecucion extends Component
 {
@@ -23,10 +25,10 @@ class Ejecucion extends Component
     }
 
     public function mount(){
-
+        $this->getPuntos();
     }
 
-    public function getPunto(){
+    public function getPuntos(){
         $this->puntos = Punto::select('id', 'descripcion')->get();
     }
 
@@ -42,13 +44,20 @@ class Ejecucion extends Component
             'foto_fachada' => 'required|mimes:jpeg,png,jpg,gif'
         ]);
         
-        // dd($this->punto);
-        // dd($this->fecha);
-        // dd($this->estrato);
-        // dd($this->barrio);
-        // dd($this->marca_foco);
-        // dd($this->selfie_pdv);
-        // dd($this->foto_fachada);
+
+        $ejecucion = new EjecucionActividad;
+        $ejecucion->user_id = Auth::id();
+        $ejecucion->punto_id = $this->punto;
+        $ejecucion->fechaVisita = $this->fecha;
+        $ejecucion->estrato = $this->estrato;
+        $ejecucion->barrio = $this->barrio;
+        $ejecucion->mensaje_foco = $this->marca_foco;
+        $ejecucion->selfie_pdv = $this->selfie_pdv->store(path: 'selfie_pdv');
+        $ejecucion->foto_fachada = $this->foto_fachada->store(path: 'foto_fachada');
+
+        if ($ejecucion->save()){
+            return redirect()->route('home')->with('success', 'Ejecución de la actividad enviada');
+        }
     }
 
     // UPDATES
