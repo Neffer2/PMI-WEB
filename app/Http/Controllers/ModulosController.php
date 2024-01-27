@@ -21,8 +21,8 @@ class ModulosController extends Controller
         return view('modulos.vetentas-abordaje', ['ejecucion_id' => $ejecucion_id]);
     }
 
-    public function cierre($ejecucion_id){
-        return view('modulos.cierre', ['ejecucion_id' => $ejecucion_id]);
+    public function cierre(Request $request, $ejecucion_id){
+        return view('modulos.cierre', ['ejecucion_id' => $ejecucion_id, 'user_ip' => $request->ip()]);
     }   
 }
  

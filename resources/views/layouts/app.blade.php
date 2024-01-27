@@ -14,7 +14,7 @@
     <div class="nav">
         <div class="row">
             <div class="col-2 nav-return">
-                <a href="{{ route('home') }}">
+                <a @yield('href')>
                     <i class="fa-solid fa-circle-left" style="color: white"></i>
                 </a>
             </div>

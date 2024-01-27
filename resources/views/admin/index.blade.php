@@ -3,11 +3,11 @@
         {{ asset('css/styles.css') }}
     @endsection
     @section('href')
-        href="{{ route('home') }}"
+    href="{{ route('lista') }}"
     @endsection
     @section('title')
-        VENTAS ABORDAJE
+        LISTA ADMINISTRADOR
     @endsection
     @section('content')
-        @livewire('modulos.ventas_abordaje', ['ejecucion_id' => $ejecucion_id])
+        @livewire('Admin.index')
     @endsection

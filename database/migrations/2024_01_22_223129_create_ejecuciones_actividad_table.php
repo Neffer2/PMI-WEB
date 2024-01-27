@@ -24,6 +24,8 @@ return new class extends Migration
             $table->string('selfie_pdv');
             $table->string('foto_fachada');
 
+            
+            $table->string('ubicacion')->nullable();
             $table->boolean('cerrado')->default(0);
             $table->string('foto_cierre')->nullable();
             $table->timestamps();

@@ -11,7 +11,7 @@ use App\Models\Gifu;
 class VentasAbordaje extends Component
 {
     // Models ventas
-    public $abordados, $interes_inicial, $interes_final, $presentacion, $genero, $edad, $cantidad,
+    public $abordados, $interes_inicial, $interes_final, $presentacion, $genero, $edad, $cantidad, $preventa_iluma,
             $gusto_marca, $gusto_marca_otro,
             $gusto_marca_competencia, $gusto_marca_competencia_otro,
             $mesaje_dispositivos_entregado, $marca_mesaje_dispositivos,
@@ -72,6 +72,8 @@ class VentasAbordaje extends Component
 
     public function storeVentasAbordaje(){
         $VentaAbordaje =  $this->ejecucion->abordaje;
+        $VentaAbordaje->num_abrodadas = $this->abordados;
+        $VentaAbordaje->preventa_iluma = $this->preventa_iluma; 
         $VentaAbordaje->estado = 1;
 
         if ($VentaAbordaje->update()){

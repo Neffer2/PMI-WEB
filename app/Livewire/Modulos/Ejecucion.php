@@ -42,7 +42,7 @@ class Ejecucion extends Component
             'marca_foco' => 'required|boolean',
             'selfie_pdv' => 'required|mimes:jpeg,png,jpg,gif',
             'foto_fachada' => 'required|mimes:jpeg,png,jpg,gif'
-        ]);
+        ]);  
         
 
         $ejecucion = new EjecucionActividad;
@@ -52,8 +52,8 @@ class Ejecucion extends Component
         $ejecucion->estrato = $this->estrato;
         $ejecucion->barrio = $this->barrio;
         $ejecucion->mensaje_foco = $this->marca_foco;
-        $ejecucion->selfie_pdv = $this->selfie_pdv->store(path: 'selfie_pdv');
-        $ejecucion->foto_fachada = $this->foto_fachada->store(path: 'foto_fachada');
+        $ejecucion->selfie_pdv = $this->selfie_pdv->store(path: 'public/selfie_pdv');
+        $ejecucion->foto_fachada = $this->foto_fachada->store(path: 'public/foto_fachada');
 
         if ($ejecucion->save()){
             $VentaAbordaje = new VentaAbordaje;
