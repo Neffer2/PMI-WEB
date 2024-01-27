@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('ventas_abordaje_id'); 
             $table->foreign('ventas_abordaje_id')->references('id')->on('ventas_abordaje');            
-
             $table->foreignId('interes_inicial'); 
             $table->foreign('interes_inicial')->references('id')->on('productos');
             $table->foreignId('interes_final'); 
@@ -24,22 +23,16 @@ return new class extends Migration
             $table->string('genero');
             $table->string('edad');
             $table->string('cantidad');
-
-            $table->string('gusto_marca');
-            $table->string('razon_gusto_marca');
-
-            $table->string('gusto_marca_competencia');
-            $table->string('razon_gusto_marca_competencia');
-
-            $table->boolean('mesaje_dispositivos_entregado');
-            $table->string('marca_mesaje_dispositivos');
-
-            $table->boolean('mesaje_cigarrillos_entregado');
-            $table->string('marca_mesaje_cigarrillos');
-
-            $table->boolean('intervencion_alternativas_libres_humo');
-            $table->boolean('intervencion_diferencia_fumar');
-
+            $table->string('gusto_marca')->nullable();
+            $table->string('razon_gusto_marca')->nullable();        
+            $table->string('gusto_marca_competencia')->nullable();
+            $table->string('razon_gusto_marca_competencia')->nullable();
+            $table->boolean('mesaje_dispositivos_entregado')->nullable();
+            $table->string('marca_mesaje_dispositivos')->nullable();
+            $table->boolean('mesaje_cigarrillos_entregado')->nullable();
+            $table->string('marca_mesaje_cigarrillos')->nullable();
+            $table->boolean('intervencion_alternativas_libres_humo')->nullable();
+            $table->boolean('intervencion_diferencia_fumar')->nullable();
             $table->timestamps();
         });
     }

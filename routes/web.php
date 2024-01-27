@@ -17,5 +17,6 @@ use App\Http\Controllers\ModulosController;
 Route::get('/', [ModulosController::class, 'showDashboard'])->middleware('auth')->name('home');
 Route::get('/ejecucion-actividad', [ModulosController::class, 'showModuloEjecucion'])->middleware('auth')->name('ejecucion');
 Route::get('/ventas-abordaje/{id_ejecucion}', [ModulosController::class, 'showModuloVentasAbordaje'])->middleware('auth')->name('ventas');
+Route::get('/cierre/{id_ejecucion}', [ModulosController::class, 'cierre'])->middleware('auth')->name('cierre'); 
 
 require __DIR__.'/auth.php';

@@ -6,12 +6,12 @@ use Livewire\Component;
 use App\Models\Punto; 
 use App\Models\EjecucionActividad;
 use Livewire\WithFileUploads;
+use App\Models\VentaAbordaje;
 use Illuminate\Support\Facades\Auth;
 
 class Ejecucion extends Component
 {
     use WithFileUploads; 
-    // $this->remision->store('public/remisiones'); 
 
     // MODELS
     public $punto, $fecha, $estrato, $barrio, $marca_foco, $selfie_pdv, $foto_fachada;
@@ -56,6 +56,10 @@ class Ejecucion extends Component
         $ejecucion->foto_fachada = $this->foto_fachada->store(path: 'foto_fachada');
 
         if ($ejecucion->save()){
+            $VentaAbordaje = new VentaAbordaje;
+            $VentaAbordaje->ejecucion_id = $ejecucion->id;
+            $VentaAbordaje->save();
+            
             return redirect()->route('home')->with('success', 'Ejecución de la actividad enviada');
         }
     }

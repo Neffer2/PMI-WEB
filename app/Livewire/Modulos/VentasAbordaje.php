@@ -5,14 +5,18 @@ namespace App\Livewire\Modulos;
 use Livewire\Component;
 use App\Models\Producto;
 use App\Models\Venta;
-use App\Models\VentaAbordaje;
 use App\Models\EjecucionActividad;
 use App\Models\Gifu;
 
 class VentasAbordaje extends Component
 {
     // Models ventas
-    public $abordados, $interes_inicial, $interes_final, $presentacion, $genero, $edad, $cantidad;
+    public $abordados, $interes_inicial, $interes_final, $presentacion, $genero, $edad, $cantidad,
+            $gusto_marca, $gusto_marca_otro,
+            $gusto_marca_competencia, $gusto_marca_competencia_otro,
+            $mesaje_dispositivos_entregado, $marca_mesaje_dispositivos,
+            $mesaje_cigarrillos_entregado, $marca_mesaje_cigarrillos,
+            $intervencion_alternativas_libres_humo, $intervencion_diferencia_fumar;
 
     // Models gifus
     public $producto_gifu, $genero_gifu, $edad_gifu;
@@ -34,11 +38,6 @@ class VentasAbordaje extends Component
         $this->getEjecucion();
         $this->getCombustibles();
         $this->getDispositivos();
-        if (!($this->ejecucion->abordaje)){
-            $VentaAbordaje = new VentaAbordaje;
-            $VentaAbordaje->ejecucion_id = $this->ejecucion->id;
-            $VentaAbordaje->save();
-        }
     }
 
     public function getCombustibles(){
@@ -60,7 +59,26 @@ class VentasAbordaje extends Component
     public function getEjecucion(){
         $this->ejecucion = EjecucionActividad::find($this->ejecucion_id);
     }
-    
+
+    public function addAbordado(){
+        $this->abordados += 1;
+        $this->updatedAbordados();
+    }
+
+    public function subsAbordado(){
+        $this->abordados -= 1;
+        $this->updatedAbordados(); 
+    }
+
+    public function storeVentasAbordaje(){
+        $VentaAbordaje =  $this->ejecucion->abordaje;
+        $VentaAbordaje->estado = 1;
+
+        if ($VentaAbordaje->update()){
+            return redirect()->route('home')->with('success', 'Ventas ejecución enviado');
+        }
+    }
+
     public function storeVenta(){
         $this->validate([
             'interes_inicial' => 'required|numeric', 
@@ -69,7 +87,47 @@ class VentasAbordaje extends Component
             'genero' => 'required|string',
             'edad' => 'required|string',
             'cantidad' => 'required|numeric',
+            'intervencion_alternativas_libres_humo' => 'required',
+            'intervencion_diferencia_fumar' => 'required'
         ]);
+
+        if (is_null($this->gusto_marca) && is_null($this->gusto_marca_competencia)){
+            $this->validate([
+                'gusto_marca' => 'required|message: Debes rellenar todos los campos.'
+            ]);
+        }
+
+        if ($this->gusto_marca == "Otro"){
+            $this->validate([
+                'gusto_marca_otro' => 'required|string|max:500'
+            ]);
+        }
+
+        if ($this->gusto_marca_competencia == "Otro"){
+            $this->validate([
+                'gusto_marca_competencia_otro' => 'required|string|max:500'
+            ]);
+        }
+
+        $this->validate([
+            'mesaje_dispositivos_entregado' => 'required|string'
+        ]);
+
+        if ($this->mesaje_dispositivos_entregado){
+            $this->validate([
+                'marca_mesaje_dispositivos' => 'required'
+            ]);
+        }
+
+        $this->validate([
+            'mesaje_cigarrillos_entregado' => 'required|string'
+        ]);
+
+        if ($this->mesaje_cigarrillos_entregado){
+            $this->validate([
+                'marca_mesaje_cigarrillos' => 'required'
+            ]);
+        }
 
         $venta = new Venta;
         $venta->ventas_abordaje_id = $this->ejecucion->abordaje->id;
@@ -80,20 +138,16 @@ class VentasAbordaje extends Component
         $venta->edad = $this->edad;
         $venta->cantidad = $this->cantidad;
 
-        $venta->gusto_marca = 1;
-        $venta->razon_gusto_marca = 1;
-
-        $venta->gusto_marca_competencia = 1;
-        $venta->razon_gusto_marca_competencia = 1;
-
-        $venta->mesaje_dispositivos_entregado = 1;
-        $venta->marca_mesaje_dispositivos = 1;
-
-        $venta->mesaje_cigarrillos_entregado = 1;
-        $venta->marca_mesaje_cigarrillos = 1;
-
-        $venta->intervencion_alternativas_libres_humo = 1;
-        $venta->intervencion_diferencia_fumar = 1;
+        $venta->gusto_marca = $this->gusto_marca;
+        $venta->razon_gusto_marca = $this->gusto_marca_otro;
+        $venta->gusto_marca_competencia = $this->gusto_marca_competencia;
+        $venta->razon_gusto_marca_competencia = $this->gusto_marca_competencia_otro;
+        $venta->mesaje_dispositivos_entregado = $this->mesaje_dispositivos_entregado;
+        $venta->marca_mesaje_dispositivos = $this->marca_mesaje_dispositivos;
+        $venta->mesaje_cigarrillos_entregado = $this->mesaje_cigarrillos_entregado;
+        $venta->marca_mesaje_cigarrillos = $this->marca_mesaje_cigarrillos;
+        $venta->intervencion_alternativas_libres_humo = $this->intervencion_alternativas_libres_humo;
+        $venta->intervencion_diferencia_fumar = $this->intervencion_diferencia_fumar;
 
         if ($venta->save()){
             $this->resetVentas();
@@ -135,8 +189,19 @@ class VentasAbordaje extends Component
             'presentacion',
             'genero',
             'edad',
-            'cantidad'
+            'cantidad',
+            'gusto_marca',
+            'gusto_marca_otro',
+            'gusto_marca_competencia',
+            'gusto_marca_competencia_otro',
+            'mesaje_dispositivos_entregado',
+            'marca_mesaje_dispositivos',
+            'mesaje_cigarrillos_entregado',
+            'marca_mesaje_cigarrillos',
+            'intervencion_alternativas_libres_humo',
+            'intervencion_diferencia_fumar'
         );
+
     }
 
     public function resetGifus(){
@@ -145,6 +210,34 @@ class VentasAbordaje extends Component
             'genero_gifu',
             'edad_gifu'
         );
+    }
+
+    // UPDATES
+    public function updatedAbordados(){
+        ($this->abordados < 0) ? $this->abordados = 0 : $this->abordados;
+        $this->validate([
+            'abordados' => 'required|min:0'
+        ]);
+    }
+
+    public function updatedGustoMarca(){
+        $this->reset('gusto_marca_competencia_otro');
+    }
+
+    public function updatedGustoMarcaCompetenciaOtro(){
+        $this->reset('gusto_marca');
+    }
+
+    public function updatedMesajeDispositivosEntregado(){
+        if (!($this->mesaje_dispositivos_entregado)){
+            $this->reset('marca_mesaje_dispositivos');
+        }
+    }
+
+    public function updatedMesajeCigarrillosEntregado(){
+        if (!($this->mesaje_cigarrillos_entregado)){
+            $this->reset('marca_mesaje_cigarrillos');
+        }
     }
 }
   

@@ -23,6 +23,9 @@ return new class extends Migration
             $table->boolean('mensaje_foco');
             $table->string('selfie_pdv');
             $table->string('foto_fachada');
+
+            $table->boolean('cerrado')->default(0);
+            $table->string('foto_cierre')->nullable();
             $table->timestamps();
         });
     }

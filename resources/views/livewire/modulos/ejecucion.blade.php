@@ -119,7 +119,7 @@
                     class="btn btn-primary w-100">ENVIAR</button>
                 </div>
                 <div class="col-md-12">
-                    <button class="btn btn-secondary w-100">VOLVER</button>
+                    <a href="{{ route('home') }}" class="btn btn-secondary w-100">VOLVER</a>
                 </div>
             </div>
         </div>
