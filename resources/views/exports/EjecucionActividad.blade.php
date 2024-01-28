@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Ejecuciones_acitividad</title>
+    <title>Ejecuciones Acitividades</title>
 </head>
 <body>
     <table>
@@ -27,7 +27,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($ejecuciones as $ejecucion)
+            @foreach ($data as $ejecucion)
             <tr>
                 <td>{{ $ejecucion->id }}</td>
                 <td>{{ $ejecucion->user_id }}</td>
