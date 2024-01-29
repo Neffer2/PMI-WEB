@@ -23,10 +23,35 @@
                     @enderror
                 </div>
             </div>
+            <div class="row mb-2">
+                <div class="col-md-12 d-flex justify-content-center">
+                    <div wire:loading> 
+                        <div class="spinner-grow text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <div class="spinner-grow text-dark" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <div class="spinner-grow text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <div class="spinner-grow text-dark" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <div class="spinner-grow text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <div class="spinner-grow text-dark" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="row gy-2">
                 <div class="col-md-12">
                     <button wire:click="cerrar"
                     wire:confirm="¿Deseas enviar el módulo de cierre de punto?"
+                    wire:loading.attr="disabled"
                     class="btn btn-primary w-100">ENVIAR</button>
                 </div>
                 <div class="col-md-12">

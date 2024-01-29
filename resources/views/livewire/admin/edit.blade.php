@@ -74,7 +74,7 @@
         </div>
     </div>
 
-    <div class="container mt-4">
+    <div class="container my-4">
         <div class="card">
             <div class="card-header">
                 <h4>Ventas abordaje</h4>
@@ -104,7 +104,7 @@
                                 <h4>Ventas</h4>
                             </div>
                             <div class="card-body">
-                                <div class="table-responsive">
+                                <div class="table-responsive" style="max-height: 400px;">
                                     <table class="table table-striped">
                                         <thead>
                                             <tr>
@@ -113,7 +113,22 @@
                                                 <th>Presentaci&oacute;n</th>
                                                 <th>G&eacute;nero</th>
                                                 <th>Edad</th>
-                                                <th>Cantidad</th>
+                                                <th>Cantidad</th> 
+
+                                                <th>Gusto marca</th>
+                                                <th>Raz&oacute;n gusto marca</th> 
+
+                                                <th>Gusto competencia</th>
+                                                <th>Raz&oacute;n gusto competencia</th> 
+
+                                                <th>Mensaje dispositivo</th>
+                                                <th>Marca mensaje dispositivo</th>
+
+                                                <th>Mensaje cigarrillos</th>
+                                                <th>Marca mensaje cigarrillos</th>
+
+                                                <th>Intervenci&oacute;n alternativas libres de humo</th>
+                                                <th>Intervenci&oacute;n diferencia fumar</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -125,6 +140,21 @@
                                                     <td>{{ $venta->genero }}</td>
                                                     <td>{{ $venta->edad }}</td>
                                                     <td>{{ $venta->cantidad }}</td>
+                                                    
+                                                    <td>{{ $venta->gusto_marca }}</td>
+                                                    <td>{{ $venta->razon_gusto_marca }}</td>
+
+                                                    <td>{{ $venta->gusto_marca_competencia }}</td>
+                                                    <td>{{ $venta->razon_gusto_marca_competencia }}</td>
+
+                                                    <td>{{ $venta->mesaje_dispositivos_entregado }}</td>
+                                                    <td>{{ $venta->marca_mesaje_dispositivos }}</td>
+
+                                                    <td>{{ $venta->mesaje_cigarrillos_entregado }}</td>
+                                                    <td>{{ $venta->marca_mesaje_cigarrillos }}</td>
+
+                                                    <td>{{ $venta->intervencion_alternativas_libres_humo }}</td>
+                                                    <td>{{ $venta->intervencion_diferencia_fumar }}</td>                                                    
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -139,7 +169,7 @@
                                 <h4>Gifus</h4>
                             </div>
                             <div class="card-body">
-                                <div class="table-responsive">
+                                <div class="table-responsive" style="max-height: 400px;">
                                     <table class="table table-striped">
                                         <thead>
                                             <tr>

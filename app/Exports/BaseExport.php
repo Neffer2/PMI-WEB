@@ -6,18 +6,16 @@ use App\Models\EjecucionActividad;
 use App\Models\Gifu;
 use App\Models\Venta;
 use App\Models\Producto;
+use App\Models\Punto;
+use App\Models\User;
+use App\Models\Ciudad;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
-use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
-use PhpOffice\PhpSpreadsheet\Shared\Date;
-use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
-use Maatwebsite\Excel\Concerns\WithColumnFormatting;
-use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithMultipleSheets;
 
-class BaseExport implements FromView, WithColumnFormatting, WithMultipleSheets 
+class BaseExport implements FromView, WithMultipleSheets 
 {
-    protected $vistas = ['EjecucionActividad', 'VentasAbordaje', 'Ventas', 'Gifus', 'Productos'], $vista;
+    protected $vistas = ['EjecucionActividad', 'VentasAbordaje', 'Ventas', 'Gifus', 'Productos', 'Puntos', 'Usuarios', 'Ciudades'], $vista;
 
     public function __construct(string $vista)
     {
@@ -29,14 +27,20 @@ class BaseExport implements FromView, WithColumnFormatting, WithMultipleSheets
     */
     public function view(): View
     {   
-        if ($this->vista == "Gifus"){
+        if ($this->vista == "EjecucionActividad" || $this->vista == "VentasAbordaje"){
+            $data = EjecucionActividad::all();
+        }elseif ($this->vista == "Gifus"){
             $data = Gifu::all();
         }elseif ($this->vista == "Ventas"){
             $data = Venta::all();
         }elseif ($this->vista == "Productos"){
             $data = Producto::all();
-        }else{
-            $data = EjecucionActividad::all();
+        }elseif ($this->vista == "Puntos"){
+            $data = Punto::all();
+        }elseif ($this->vista == "Usuarios"){
+            $data = User::all();
+        }elseif ($this->vista = "Ciudades") {
+            $data = Ciudad::all(); 
         }
 
         return view("exports.{$this->vista}", ['data' => $data]);
@@ -50,18 +54,6 @@ class BaseExport implements FromView, WithColumnFormatting, WithMultipleSheets
         }
 
         return $sheets;
-    }
-
-    public function columnFormats(): array 
-    {
-        return [
-            // 'I' => NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE,
-            'K' => NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1,
-            'L' => NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1,
-            'M' => NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1,
-            'N' => NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1,
-            'P' => NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1,
-        ];
     }
 }    
 

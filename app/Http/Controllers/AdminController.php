@@ -17,6 +17,6 @@ class AdminController extends Controller
     }
 
     public function exportExcel() {                
-        return Excel::download(new BaseExport("HOLA"), "base.xlsx");  
+        return Excel::download(new BaseExport('EjecucionActividad'), "Base PMI: ".date('Y-m-d H:i:s').".xlsx");  
     }
 }

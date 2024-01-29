@@ -41,11 +41,11 @@ class VentasAbordaje extends Component
     }
 
     public function getCombustibles(){
-        $this->combustibles = Producto::select('id', 'descripcion')->where('tipo', 1)->get();
+        $this->combustibles = Producto::select('id', 'descripcion', 'competencia')->where('tipo', 1)->get();
     }
 
     public function getDispositivos(){
-        $this->dispositivos = Producto::select('id', 'descripcion')->where('tipo', 0)->get();
+        $this->dispositivos = Producto::select('id', 'descripcion', 'competencia')->where('tipo', 0)->get();
     }
 
     public function getVentas(){

@@ -99,7 +99,7 @@
                     @enderror
                 </div>
             </div>
-            <div class="row gy-2 mb-2">
+            <div class="row mb-2 gy-2">
                 <div class="col-md-12">                        
                     <div class="photo-box">
                         @if ($selfie_pdv) 
@@ -142,9 +142,34 @@
                     @enderror
                 </div>
             </div>
+            <div class="row mb-2">
+                <div class="col-md-12 d-flex justify-content-center">
+                    <div wire:loading> 
+                        <div class="spinner-grow text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <div class="spinner-grow text-dark" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <div class="spinner-grow text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <div class="spinner-grow text-dark" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <div class="spinner-grow text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <div class="spinner-grow text-dark" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="row gy-2">
                 <div class="col-md-12">
-                    <button wire:click="store"
+                    <button wire:loading.attr="disabled" 
+                    wire:click="store"
                     wire:confirm="¿Deseas enviar el módulo Ejecución de la Actividad?"
                     class="btn btn-primary w-100">ENVIAR</button>
                 </div>

@@ -20,7 +20,7 @@
                     </button>
                 </div>
             </div>
-            <!-- VENTAS -->
+            <!-- VENTAS --> 
             <hr>
             <div class="row">
                 <div class="text-center bold">VENTAS</div>
@@ -29,9 +29,16 @@
                         <label for="interes_inicial" class="bold label-ventas">Inter&eacute;s inicial</label>
                         <select id="interes_inicial" wire:model.live="interes_inicial" class="form-control">
                             <option value="" class="text-center">🔽</option>
-                            @foreach ($combustibles as $combustible)
-                                <option value="{{ $combustible->id }}">{{ $combustible->descripcion }}</option>
-                            @endforeach
+                            <optgroup label="PMI">
+                                @foreach ($combustibles->where('competencia', 0) as $combustible)                                     
+                                    <option value="{{ $combustible->id }}">{{ $combustible->descripcion }}</option>
+                                @endforeach
+                            </optgroup>
+                            <optgroup label="COMPETENCIA">
+                                @foreach ($combustibles->where('competencia', 1) as $combustible)                                     
+                                    <option value="{{ $combustible->id }}">{{ $combustible->descripcion }}</option>
+                                @endforeach
+                            </optgroup>
                         </select>
                         @error('interes_inicial')
                             <div id="interes_inicial" class="text-invalid">
@@ -45,9 +52,16 @@
                         <label for="interes_final" class="bold label-ventas">Inter&eacute;s final</label>
                         <select id="interes_final" wire:model.lazy="interes_final" class="form-control">
                             <option value="" class="text-center">🔽</option>
-                            @foreach ($combustibles as $combustible)
-                                <option value="{{ $combustible->id }}">{{ $combustible->descripcion }}</option>
-                            @endforeach
+                            <optgroup label="PMI">
+                                @foreach ($combustibles->where('competencia', 0) as $combustible)                                     
+                                    <option value="{{ $combustible->id }}">{{ $combustible->descripcion }}</option>
+                                @endforeach
+                            </optgroup>
+                            <optgroup label="COMPETENCIA">
+                                @foreach ($combustibles->where('competencia', 1) as $combustible)                                     
+                                    <option value="{{ $combustible->id }}">{{ $combustible->descripcion }}</option>
+                                @endforeach
+                            </optgroup>
                         </select>
                         @error('interes_final')
                             <div id="interes_final" class="text-invalid">
@@ -413,7 +427,7 @@
             <!-- -- -->
             <hr>
             <!-- LEADS -->
-            <div class="row">
+            <div class="row mb-2">
                 <div class="text-center bold">LEADS</div>
                 <div class="col-6">
                     <div class="form-group">
@@ -428,12 +442,36 @@
                     </div>
                 </div>
             </div>
-            <!-- -- -->
-
-            <div class="row gy-2 mt-2">
+            <!-- -- --> 
+            <div class="row mb-2">
+                <div class="col-md-12 d-flex justify-content-center">
+                    <div wire:loading> 
+                        <div class="spinner-grow text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <div class="spinner-grow text-dark" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <div class="spinner-grow text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <div class="spinner-grow text-dark" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <div class="spinner-grow text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <div class="spinner-grow text-dark" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row gy-2">
                 <div class="col-md-12">
                     <button wire:click="storeVentasAbordaje"
                     wire:confirm="¿Deseas enviar el módulo Ventas Abordaje?"
+                    wire:loading.attr="disabled"
                     class="btn btn-primary w-100">ENVIAR</button>
                 </div>
                 <div class="col-md-12">
