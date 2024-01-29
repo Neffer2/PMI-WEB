@@ -4,11 +4,12 @@
             <div class="row">
                 <div class="col-md-6">
                     <label for="punto">Punto de venta:</label>
-                    <select id="punto" wire:model.lazy="punto" class="form-control">
+                    <select id="punto" wire:model.live="punto" class="form-control">
                         <option value="">Seleccionar</option>
-                        @foreach ($puntos as $punto)
-                            <option value="{{ $punto->id }}">{{ $punto->descripcion }}</option>
+                        @foreach ($puntos as $punto_)
+                            <option value="{{ $punto_->id }}">{{ $punto_->descripcion }}</option>
                         @endforeach
+                        <option value="Otro">Otro</option>
                     </select>
                     @error('punto')
                         <div id="punto" class="text-invalid">
@@ -26,6 +27,35 @@
                     @enderror
                 </div>
             </div>
+            @if($punto == "Otro")
+                <div class="row mt-2">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input type="text" class="form-control"
+                            placeholder="C&oacute;digo del punto" wire:model.lazy="cod">
+                        </div>
+                        @error('cod')
+                            <div id="cod" class="text-invalid">
+                                {{ $message }}
+                            </div>   
+                        @enderror
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input type="text" class="form-control" 
+                            placeholder="Nombre del punto" wire:model.lazy="punto_nom">
+                        </div>
+                        @error('punto_nom')
+                            <div id="punto_nom" class="text-invalid">
+                                {{ $message }}
+                            </div>   
+                        @enderror
+                    </div>
+                    <div class="col-md-4">
+                        <button wire:click="newPunto" class="btn btn-primary">Crear punto</button>
+                    </div>
+                </div>
+            @endif
             <div class="row">
                 <div class="col-md-6">
                     <label for="estrato">Estrato:</label>

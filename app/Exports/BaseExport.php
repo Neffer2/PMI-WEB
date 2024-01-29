@@ -5,6 +5,7 @@ namespace App\Exports;
 use App\Models\EjecucionActividad;
 use App\Models\Gifu;
 use App\Models\Venta;
+use App\Models\Producto;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
@@ -16,7 +17,7 @@ use Maatwebsite\Excel\Concerns\WithMultipleSheets;
 
 class BaseExport implements FromView, WithColumnFormatting, WithMultipleSheets 
 {
-    protected $vistas = ['EjecucionActividad', 'VentasAbordaje', 'Ventas', 'Gifus'], $vista;
+    protected $vistas = ['EjecucionActividad', 'VentasAbordaje', 'Ventas', 'Gifus', 'Productos'], $vista;
 
     public function __construct(string $vista)
     {
@@ -32,6 +33,8 @@ class BaseExport implements FromView, WithColumnFormatting, WithMultipleSheets
             $data = Gifu::all();
         }elseif ($this->vista == "Ventas"){
             $data = Venta::all();
+        }elseif ($this->vista == "Productos"){
+            $data = Producto::all();
         }else{
             $data = EjecucionActividad::all();
         }

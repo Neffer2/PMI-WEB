@@ -12,28 +12,25 @@ use Illuminate\Support\Facades\Auth;
 class Ejecucion extends Component
 {
     use WithFileUploads; 
-
+ 
     // MODELS
-    public $punto, $fecha, $estrato, $barrio, $marca_foco, $selfie_pdv, $foto_fachada;
+    public $punto, $fecha, $estrato, $barrio, $marca_foco, $selfie_pdv, $foto_fachada,
+            $cod, $punto_nom;
 
     // Useful vars
     public $puntos = [];
 
     public function render()
     {
+        $this->getPuntos();
         return view('livewire.modulos.ejecucion');
     }
 
-    public function mount(){
-        $this->getPuntos();
-    }
-
     public function getPuntos(){
-        $this->puntos = Punto::select('id', 'descripcion')->get();
+        $this->puntos = Punto::select('id', 'descripcion')->where('ciudad_id', Auth::user()->ciudad_id)->get();
     }
 
     public function store(){
-
         $this->validate([
             'punto' => 'required|numeric',
             'fecha' => 'required|date',
@@ -64,10 +61,26 @@ class Ejecucion extends Component
         }
     }
 
+    public function newPunto(){
+        $this->validate([
+            'cod' => ['required', 'numeric', 'unique:puntos_venta'],
+            'punto_nom' => 'required|string'
+        ]);
+
+        $punto = new Punto;
+        $punto->cod = $this->cod;
+        $punto->descripcion = $this->punto_nom;
+        $punto->ciudad_id = Auth::user()->ciudad_id;
+        $punto->save();
+
+        $this->getPuntos();
+        $this->punto = $punto->id;
+    }
+
     // UPDATES
     public function updatedPunto(){
         $this->validate([
-            'punto' => 'required|numeric'
+            'punto' => 'required'
         ]);
     }
 
@@ -104,6 +117,18 @@ class Ejecucion extends Component
     public function updatedFotoFachada(){
         $this->validate([
             'foto_fachada' => 'required|mimes:jpeg,png,jpg,gif'
+        ]);
+    }
+
+    public function updatedCod(){
+        $this->validate([
+            'cod' => ['required', 'numeric', 'unique:puntos_venta']
+        ]);
+    }
+    
+    public function updatedPuntoNom(){
+        $this->validate([
+            'punto_nom' => 'required|string'
         ]);
     }
 }
