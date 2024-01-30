@@ -7,6 +7,8 @@ use App\Models\Producto;
 use App\Models\Venta;
 use App\Models\EjecucionActividad;
 use App\Models\Gifu;
+use App\Models\ProductoCiudad;
+use Illuminate\Support\Facades\Auth;
 
 class VentasAbordaje extends Component
 {
@@ -22,7 +24,7 @@ class VentasAbordaje extends Component
     public $producto_gifu, $genero_gifu, $edad_gifu;
 
     // Useful vars
-    public $ventas = [], $gifus = [], $combustibles = [], $dispositivos = [], $ejecucion;
+    public $ventas = [], $gifus = [], $combustibles = [], $combustiblesCompetencia = [], $dispositivos = [], $ejecucion;
 
     // Filled
     public $ejecucion_id;
@@ -35,14 +37,18 @@ class VentasAbordaje extends Component
     }
 
     public function mount(){
-        $this->getEjecucion();
+        $this->getEjecucion(); 
         $this->getCombustibles();
         $this->getDispositivos();
     }
 
-    public function getCombustibles(){
-        $this->combustibles = Producto::select('id', 'descripcion', 'competencia')->where('tipo', 1)->get();
-    }
+    public function getCombustibles(){ 
+        $this->combustibles = ProductoCiudad::where('ciudad_id', Auth::user()->ciudad_id)->get();
+        $this->combustiblesCompetencia = Producto::select('id', 'descripcion', 'competencia')->where([
+            ['tipo', 1],
+            ['competencia', 1],
+        ])->get();
+    } 
 
     public function getDispositivos(){
         $this->dispositivos = Producto::select('id', 'descripcion', 'competencia')->where('tipo', 0)->get();

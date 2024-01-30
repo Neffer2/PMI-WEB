@@ -30,12 +30,12 @@
                         <select id="interes_inicial" wire:model.live="interes_inicial" class="form-control">
                             <option value="" class="text-center">🔽</option>
                             <optgroup label="PMI">
-                                @foreach ($combustibles->where('competencia', 0) as $combustible)                                     
-                                    <option value="{{ $combustible->id }}">{{ $combustible->descripcion }}</option>
+                                @foreach ($combustibles as $combustible)                                     
+                                    <option value="{{ $combustible->producto->id }}">{{ $combustible->producto->descripcion }}</option>
                                 @endforeach
                             </optgroup>
                             <optgroup label="COMPETENCIA">
-                                @foreach ($combustibles->where('competencia', 1) as $combustible)                                     
+                                @foreach ($combustiblesCompetencia as $combustible)                                     
                                     <option value="{{ $combustible->id }}">{{ $combustible->descripcion }}</option>
                                 @endforeach
                             </optgroup>
@@ -53,12 +53,12 @@
                         <select id="interes_final" wire:model.lazy="interes_final" class="form-control">
                             <option value="" class="text-center">🔽</option>
                             <optgroup label="PMI">
-                                @foreach ($combustibles->where('competencia', 0) as $combustible)                                     
-                                    <option value="{{ $combustible->id }}">{{ $combustible->descripcion }}</option>
+                                @foreach ($combustibles as $combustible)                                     
+                                    <option value="{{ $combustible->producto->id }}">{{ $combustible->producto->descripcion }}</option>
                                 @endforeach
                             </optgroup>
                             <optgroup label="COMPETENCIA">
-                                @foreach ($combustibles->where('competencia', 1) as $combustible)                                     
+                                @foreach ($combustiblesCompetencia as $combustible)                                     
                                     <option value="{{ $combustible->id }}">{{ $combustible->descripcion }}</option>
                                 @endforeach
                             </optgroup>
@@ -138,7 +138,7 @@
                 </div>
             </div>
             <div class="row">
-                @if ($interes_inicial && !($combustibles->where('id', $interes_inicial)->first()->competencia))
+                @if ($interes_inicial && $combustibles->where('id', $interes_inicial)->first())
                     <div class="col-12">
                         <div class="form-group">
                             <label for="gusto_marca" class="bold label-ventas">¿Por qu&eacute; le gusta esta marca?</label> 
@@ -166,7 +166,7 @@
                             @endif
                         </div>
                     </div>                    
-                @elseif ($interes_inicial && $combustibles->where('id', $interes_inicial)->first()->competencia)
+                @elseif ($interes_inicial && $combustiblesCompetencia->where('id', $interes_inicial)->first())
                     <div class="col-12">
                         <div class="form-group">
                             <label for="gusto_marca_competencia" class="bold label-ventas">¿Por qu&eacute; le gusta esta marca por encima de la nuestra?</label>
