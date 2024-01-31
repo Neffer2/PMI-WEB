@@ -11,7 +11,7 @@ use Illuminate\Validation\Rules;
 class Register extends Component
 {
     // Models 
-    public $name, $email, $password, $password_confirmation, $ciudad, $rol = 2, $estado = 1;
+    public $name = "", $email, $password, $password_confirmation, $ciudad, $rol = 2, $estado = 1;
 
     // Useful vars
     public $ciudades = [], $roles = [], $estados = [];
@@ -46,9 +46,9 @@ class Register extends Component
     }
 
     public function updatedEmail(){
-        $this->validate([
-            'email' => 'required|email'
-        ]);
+        $this->validate([ 
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users']
+        ]); 
     }
 
     public function updatedCiudad(){
@@ -58,7 +58,7 @@ class Register extends Component
     }
 
     public function updatedRol(){
-        $this->validate([
+        $this->validate([  
             'rol' => 'required|numeric'
         ]);
     }

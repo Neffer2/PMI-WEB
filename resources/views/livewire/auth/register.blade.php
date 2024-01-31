@@ -1,33 +1,33 @@
-<div>
+<div>  
     <form method="POST" action="{{ route('register') }}">
         @csrf
-        <div class="row gy-2">
-            <div class="col-md-6">
+        <div class="row gy-2"> 
+            <div class="col-md-6"> 
                 <div class="form-group">
                     <input wire:model.lazy="name" class="form-control" id="name" type="text" name="name"
-                    value="{{ old('name') }}" required autofocus autocomplete="name" placeholder="Nombre">
+                    x-text="$wire.name = '{{ old('name') }}'" required autofocus autocomplete="name" placeholder="Nombre">
                     @error('name')
                         <div id="name" class="text-invalid">
                             {{ $message }}
                         </div>
                     @enderror
-                </div>
+                </div> 
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <input wire:model.lazy="email" class="form-control" id="email" type="email" name="email"
-                    value="{{ old('email') }}" required autofocus autocomplete="username" placeholder="Email">
+                    <input wire:model.change="email" class="form-control" id="email" type="email" name="email"
+                    required autofocus autocomplete="username" placeholder="Email">
                     @error('email')
                         <div id="email" class="text-invalid">
                             {{ $message }}
                         </div>
                     @enderror
                 </div>        
-            </div> 
+            </div>  
             <div class="col-md-6">
                 <div class="form-group">
                     <input wire:model.lazy="password" class="form-control" id="password" type="password" name="password"
-                    value="{{ old('password') }}" required autocomplete="new-password" placeholder="Contraseña">
+                    required autocomplete="new-password" placeholder="Contraseña">
                     @error('password')
                         <div id="password" class="text-invalid">
                             {{ $message }}
