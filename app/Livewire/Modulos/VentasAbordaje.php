@@ -94,7 +94,7 @@ class VentasAbordaje extends Component
             'presentacion' => 'required|string',
             'genero' => 'required|string',
             'edad' => 'required|string',
-            'cantidad' => 'required|numeric',
+            'cantidad' => 'required|numeric|min:0',
             'intervencion_alternativas_libres_humo' => 'required',
             'intervencion_diferencia_fumar' => 'required'
         ]);
@@ -220,7 +220,13 @@ class VentasAbordaje extends Component
         );
     }
 
-    // UPDATES
+    // UPDATES 
+    public function updatedCantidad(){
+        if ($this->cantidad < 0){
+            $this->cantidad = 0;
+        }
+    }
+
     public function updatedAbordados(){
         ($this->abordados < 0) ? $this->abordados = 0 : $this->abordados;
         $this->validate([

@@ -122,13 +122,13 @@
                             <div id="edad" class="text-invalid">
                                 {{ $message }}
                             </div>   
-                        @enderror
+                        @enderror 
                     </div>
                 </div>
                 <div class="col-4">
                     <div class="form-group text-center">
                         <label for="cantidad" class="bold label-ventas">Cantidad</label>
-                        <input id="cantidad" type="number" wire:model="cantidad" class="form-control">
+                        <input id="cantidad" type="number" wire:model.change="cantidad" class="form-control">
                         @error('cantidad')
                             <div id="cantidad" class="text-invalid">
                                 {{ $message }}

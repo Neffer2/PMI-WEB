@@ -30,8 +30,8 @@ class Cierre extends Component
     {
         // Make a request to the ipinfo.io API
         $client = new Client();
-        // $response = $client->get("https://ipinfo.io/186.29.247.166?token=25e53798e896ae");
-        $response = $client->get("https://ipinfo.io/{$this->user_ip}?token=25e53798e896ae");
+        $response = $client->get("https://ipinfo.io/186.29.247.166?token=25e53798e896ae");
+        // $response = $client->get("https://ipinfo.io/{$this->user_ip}?token=25e53798e896ae");
         // Parse the JSON response
         $data = json_decode($response->getBody());
         return $data->loc;
