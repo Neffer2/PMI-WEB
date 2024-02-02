@@ -28,7 +28,7 @@
                 </div>
             </div>
             @if($punto == "Otro")
-                <div class="row mt-2">
+                <div class="row gy-2 my-1">
                     <div class="col-md-4">
                         <div class="form-group">
                             <input type="text" class="form-control"
@@ -129,8 +129,7 @@
                                 Foto Fachada
                                 <input id="foto_fachada" type="file"
                                 id="foto_fachada" accept="image/*"
-                                wire:model="foto_fachada" capture="user"
-                                x-on:click="isOpen"/><br/>
+                                wire:model="foto_fachada" capture="user"/><br/>
                                 <span id="imageName"></span>
                             </label>
                         @endif

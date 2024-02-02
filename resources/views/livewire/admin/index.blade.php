@@ -1,6 +1,6 @@
 <div>
     <div class="container">
-        <div class="card mt-4">
+        <div class="card mt-4 mb-1">
             <div class="card-body">
                 <div class="table-responsive" style="max-height: none">
                     <table class="table table-striped">
@@ -12,7 +12,7 @@
                                 <th>Punto</th>
                                 <th>Fecha visita</th>
                                 <th>Acciones</th>
-                            </tr>
+                            </tr> 
                         </thead>
                         <tbody>
                             @foreach ($ejecuciones as $key => $ejecucion)
@@ -34,5 +34,6 @@
                 </div>
             </div>
         </div>
+        {{ $ejecuciones->links() }}
     </div>
 </div>

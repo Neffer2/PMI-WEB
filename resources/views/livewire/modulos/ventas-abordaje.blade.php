@@ -84,7 +84,7 @@
                             <div id="presentacion" class="text-invalid">
                                 {{ $message }}
                             </div>   
-                        @enderror
+                        @enderror 
                     </div>
                 </div>
             </div>
@@ -138,7 +138,7 @@
                 </div>
             </div>
             <div class="row">
-                @if ($interes_inicial && $combustibles->where('id', $interes_inicial)->first())
+                @if ($interes_inicial && $combustibles->where('producto_id', $interes_inicial)->first())
                     <div class="col-12">
                         <div class="form-group">
                             <label for="gusto_marca" class="bold label-ventas">¿Por qu&eacute; le gusta esta marca?</label> 
