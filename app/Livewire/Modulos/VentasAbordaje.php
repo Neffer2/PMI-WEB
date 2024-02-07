@@ -79,7 +79,8 @@ class VentasAbordaje extends Component
     public function storeVentasAbordaje(){
         $VentaAbordaje =  $this->ejecucion->abordaje;
         $VentaAbordaje->num_abrodadas = $this->abordados;
-        $VentaAbordaje->preventa_iluma = $this->preventa_iluma; 
+        $VentaAbordaje->preventa_iluma = 0; 
+        // $VentaAbordaje->preventa_iluma = $this->preventa_iluma; 
         $VentaAbordaje->estado = 1;
 
         if ($VentaAbordaje->update()){
@@ -225,7 +226,7 @@ class VentasAbordaje extends Component
         if ($this->cantidad < 0){
             $this->cantidad = 0;
         }
-    }
+    } 
 
     public function updatedAbordados(){
         ($this->abordados < 0) ? $this->abordados = 0 : $this->abordados;

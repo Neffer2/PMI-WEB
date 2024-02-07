@@ -75,10 +75,13 @@
                         <label for="presentacion" class="bold label-ventas">Presentaci&oacute;n</label>
                         <select id="presentacion" wire:model.lazy="presentacion" class="form-control">
                             <option value="" class="text-center">🔽</option>
-                            <option value="1 Stick">1 Stick</option>
-                            <option value="10s">10s</option>
-                            <option value="18s">18s</option>
-                            <option value="20s">20s</option>
+                            @if ($interes_inicial == 19)
+                                <option value="1 Stick">1 Stick</option>                            
+                                <option value="18s">18s</option>                                
+                            @else
+                                <option value="10s">10s</option>
+                                <option value="20s">20s</option>
+                            @endif
                         </select>
                         @error('presentacion')
                             <div id="presentacion" class="text-invalid">
@@ -427,7 +430,7 @@
             <!-- -- -->
             <hr>
             <!-- LEADS -->
-            <div class="row mb-2">
+            {{-- <div class="row mb-2">
                 <div class="text-center bold">LEADS</div>
                 <div class="col-6">
                     <div class="form-group">
@@ -441,7 +444,7 @@
                         @enderror
                     </div>
                 </div>
-            </div>
+            </div> --}}
             <!-- -- --> 
             <div class="row mb-2">
                 <div class="col-md-12 d-flex justify-content-center">
