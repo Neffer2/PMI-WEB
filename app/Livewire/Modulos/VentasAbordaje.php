@@ -77,6 +77,10 @@ class VentasAbordaje extends Component
     }
 
     public function storeVentasAbordaje(){
+        $this->validate([
+            'abordados' => 'required|min:1'
+        ]);
+
         $VentaAbordaje =  $this->ejecucion->abordaje;
         $VentaAbordaje->num_abrodadas = $this->abordados;
         $VentaAbordaje->preventa_iluma = 0; 
@@ -229,10 +233,13 @@ class VentasAbordaje extends Component
     } 
 
     public function updatedAbordados(){
-        ($this->abordados < 0) ? $this->abordados = 0 : $this->abordados;
         $this->validate([
-            'abordados' => 'required|min:0'
+            'abordados' => 'required|min:1'
         ]);
+
+        if ($this->abordados <= 0){
+            $this->abordados = null;
+        }
     }
 
     public function updatedGustoMarca(){

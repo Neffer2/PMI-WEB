@@ -22,4 +22,17 @@ class Edit extends Component
     public function mount(){
         $this->ejecucion = EjecucionActividad::find($this->ejecucion_id);
     }
+
+    public function deleteRegistro(){
+        $this->ejecucion->abordaje->ventas->map(function ($venta){
+            $venta->delete();
+        });
+        $this->ejecucion->abordaje->gifus->map(function ($gifu){
+            $gifu->delete();
+        });
+        $this->ejecucion->abordaje->delete();
+        $this->ejecucion->delete();
+
+        return redirect()->route('lista')->with('success', 'Registro eliminado con éxito.'); 
+    }
 }

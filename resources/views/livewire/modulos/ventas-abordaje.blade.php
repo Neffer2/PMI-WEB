@@ -1,7 +1,7 @@
 <div class="d-flex justify-content-center">
     <div class="form-container">
         <div class="py-2">
-            <div class="row">
+            <div class="row"> 
                 <div class="col-8">
                     <input id="abordados" type="text" wire:model.live="abordados"
                     class="form-control" placeholder="Personas abordadas" disabled>
@@ -75,8 +75,8 @@
                         <label for="presentacion" class="bold label-ventas">Presentaci&oacute;n</label>
                         <select id="presentacion" wire:model.lazy="presentacion" class="form-control">
                             <option value="" class="text-center">🔽</option>
+                            <option value="1 Stick">1 Stick</option>                            
                             @if ($interes_inicial == 19)
-                                <option value="1 Stick">1 Stick</option>                            
                                 <option value="18s">18s</option>                                
                             @else
                                 <option value="10s">10s</option>
@@ -107,7 +107,7 @@
                         @enderror
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-4"> 
                     <div class="form-group text-center">
                         <label for="edad" class="bold label-ventas">Edad</label>
                         <select id="edad" wire:model="edad" class="form-control">

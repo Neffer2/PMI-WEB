@@ -196,5 +196,9 @@
             </div>
         </div>
     </div>
+
+    <div class="container my-4">
+        <button class="btn btn-danger" wire:click="deleteRegistro" wire:confirm="¿Estas seguro de elimninar este registro?">Eliminar</button>
+    </div>
 </div>
- 
+  

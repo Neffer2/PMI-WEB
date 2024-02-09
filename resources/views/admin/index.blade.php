@@ -3,7 +3,7 @@
         {{ asset('css/styles.css') }}
     @endsection
     @section('href')
-    href="{{ route('lista') }}"
+        href="{{ route('lista') }}"
     @endsection
     @section('title')
         LISTA ADMINISTRADOR
