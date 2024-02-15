@@ -13,7 +13,7 @@
                 <td style="font-weight: bold">id</td>
                 <td style="font-weight: bold">ejecucion_id</td>
                 <td style="font-weight: bold">num_abordadas</td>
-                <td style="font-weight: bold">preventa_iluma</td>
+                {{-- <td style="font-weight: bold">preventa_iluma</td> --}}
                 <td style="font-weight: bold">created_at</td>
                 <td style="font-weight: bold">updated_at</td>
             </tr>
@@ -24,7 +24,7 @@
                 <td>{{ $ejecucion->abordaje->id }}</td>
                 <td>{{ $ejecucion->abordaje->ejecucion_id }}</td>
                 <td>{{ $ejecucion->abordaje->num_abrodadas }}</td>
-                <td>{{ $ejecucion->abordaje->preventa_iluma }}</td>
+                {{-- <td>{{ $ejecucion->abordaje->preventa_iluma }}</td> --}}
                 <td>{{ $ejecucion->abordaje->created_at }}</td>
                 <td>{{ $ejecucion->abordaje->updated_at }}</td>
             </tr>
