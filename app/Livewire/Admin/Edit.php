@@ -36,3 +36,4 @@ class Edit extends Component
         return redirect()->route('lista')->with('success', 'Registro eliminado con éxito.'); 
     }
 }
+  

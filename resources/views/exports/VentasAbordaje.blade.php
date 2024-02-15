@@ -23,6 +23,7 @@
             <tr>
                 <td>{{ $ejecucion->abordaje->id }}</td>
                 <td>{{ $ejecucion->abordaje->ejecucion_id }}</td>
+                <td>{{ $ejecucion->abordaje->num_abrodadas }}</td>
                 <td>{{ $ejecucion->abordaje->preventa_iluma }}</td>
                 <td>{{ $ejecucion->abordaje->created_at }}</td>
                 <td>{{ $ejecucion->abordaje->updated_at }}</td>
