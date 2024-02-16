@@ -43,7 +43,7 @@ class VentasAbordaje extends Component
     }
 
     public function getCombustibles(){ 
-        $this->combustibles = ProductoCiudad::where('ciudad_id', Auth::user()->ciudad_id)->get();
+        $this->combustibles = ProductoCiudad::where('ciudad_id', Auth::user()->ciudad_id)->orderBy('producto_id', 'asc')->get();
         $this->combustiblesCompetencia = Producto::select('id', 'descripcion', 'competencia')->where([
             ['tipo', 1],
             ['competencia', 1],
@@ -236,7 +236,7 @@ class VentasAbordaje extends Component
         $this->validate([
             'abordados' => 'required|min:1'
         ]);
-
+ 
         if ($this->abordados <= 0){
             $this->abordados = null;
         }

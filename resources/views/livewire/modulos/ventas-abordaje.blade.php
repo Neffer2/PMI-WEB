@@ -31,7 +31,11 @@
                             <option value="" class="text-center">🔽</option>
                             <optgroup label="PMI">
                                 @foreach ($combustibles as $combustible)                                     
-                                    <option value="{{ $combustible->producto->id }}">{{ $combustible->producto->descripcion }}</option>
+                                    @if ((($combustible->producto->id >= 24) && ($combustible->producto->id <= 28)) || (($combustible->producto->id >= 33) && ($combustible->producto->id <= 36)))
+                                        <option value="{{ $combustible->producto->id }}"> -- {{ $combustible->producto->descripcion }}</option>
+                                    @else
+                                        <option value="{{ $combustible->producto->id }}">{{ $combustible->producto->descripcion }}</option>
+                                    @endif
                                 @endforeach
                             </optgroup>
                             <optgroup label="COMPETENCIA">
@@ -54,7 +58,11 @@
                             <option value="" class="text-center">🔽</option>
                             <optgroup label="PMI">
                                 @foreach ($combustibles as $combustible)                                     
-                                    <option value="{{ $combustible->producto->id }}">{{ $combustible->producto->descripcion }}</option>
+                                    @if ((($combustible->producto->id >= 24) && ($combustible->producto->id <= 28)) || (($combustible->producto->id >= 33) && ($combustible->producto->id <= 36)))
+                                        <option value="{{ $combustible->producto->id }}"> -- {{ $combustible->producto->descripcion }}</option>
+                                    @else
+                                        <option value="{{ $combustible->producto->id }}">{{ $combustible->producto->descripcion }}</option>
+                                    @endif
                                 @endforeach
                             </optgroup>
                             <optgroup label="COMPETENCIA">
@@ -75,10 +83,18 @@
                         <label for="presentacion" class="bold label-ventas">Presentaci&oacute;n</label>
                         <select id="presentacion" wire:model.lazy="presentacion" class="form-control">
                             <option value="" class="text-center">🔽</option>
-                            <option value="1 Stick">1 Stick</option>                            
-                            @if ($interes_inicial == 19)
+                            @if ($interes_final == 19)
+                                <option value="1 Stick">1 Stick</option>
                                 <option value="18s">18s</option>                                
-                            @else
+                            @elseif (($interes_final >= 20) && ($interes_final <= 23))
+                                <option value="ONE">ONE</option>
+                                <option value="DUO">DUO</option>
+                            @elseif (($interes_final >= 29) && ($interes_final <= 32))
+                                <option value="BONDS">BONDS</option>
+                            @elseif ((($interes_final >= 24) && ($interes_final <= 28)) || (($interes_final >= 33) && ($interes_final <= 36)))
+                                <option value="X20">X20</option>
+                            @else ($interes_final == 19)
+                                <option value="1 Stick">1 Stick</option>
                                 <option value="10s">10s</option>
                                 <option value="20s">20s</option>
                             @endif
@@ -120,7 +136,7 @@
                             <option value="43-47">43-47</option>
                             <option value="48-52">48-52</option>
                             <option value="53">Mas de 52</option>
-                        </select>
+                        </select> 
                         @error('edad')
                             <div id="edad" class="text-invalid">
                                 {{ $message }}
@@ -284,7 +300,7 @@
                 <div class="col-12">
                     <div class="form-group">
                         <label for="intervencion_diferencia_fumar" class="bold label-ventas">
-                            Antes de mi intervenci&oacute;n, ¿El consumidor sab&iacute; la diferencia entre fumar y usar dispositivos de calentamiendo de tabaco?
+                            Antes de mi intervenci&oacute;n, ¿El consumidor sab&iacute;a la diferencia entre fumar y usar dispositivos de calentamiendo de tabaco?
                         </label>
                         <select id="intervencion_diferencia_fumar" wire:model.change="intervencion_diferencia_fumar" class="form-control">
                             <option value="">Seleccionar</option>
