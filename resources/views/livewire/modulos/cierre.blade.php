@@ -10,8 +10,7 @@
                             <label for="foto_cierre">
                                 Foto cierre 
                                 <input id="foto_cierre" type="file" 
-                                id="foto_cierre" accept="image/*"
-                                wire:model.lazy="foto_cierre" capture="user"/><br/>
+                                id="foto_cierre" accept="image/*" capture="user"/><br/>
                                 <span id="imageName"></span>
                             </label>
                         @endif
@@ -60,5 +59,66 @@
             </div>
         </div>
     </div>
+    @script
+    <script>
+        const MAX_WIDTH = 720;
+        const MAX_HEIGHT = 580;
+        const MIME_TYPE = "image/jpeg";
+        const QUALITY = .8;
+
+        const selfie_pdv = document.getElementById("foto_cierre");
+
+        selfie_pdv.onchange = function (ev) {
+            const file = ev.target.files[0]; // get the file
+            const blobURL = URL.createObjectURL(file);
+            const img = new Image();
+            img.src = blobURL;
+            img.onerror = function () {
+                URL.revokeObjectURL(this.src);
+                // Handle the failure properly
+                console.log("Cannot load image");
+            };
+            img.onload = function () {
+                URL.revokeObjectURL(this.src);
+                const [newWidth, newHeight] = calculateSize(img, MAX_WIDTH, MAX_HEIGHT);
+                const canvas = document.createElement("canvas");
+                canvas.width = newWidth;
+                canvas.height = newHeight;
+                const ctx = canvas.getContext("2d");
+                ctx.drawImage(img, 0, 0, newWidth, newHeight);
+                canvas.toBlob(
+                blob => {
+                    upload_foto_cierre(blob);
+                },
+                MIME_TYPE,
+                QUALITY);
+            };
+        };
+
+        function calculateSize(img, maxWidth, maxHeight) {
+            let width = img.width;
+            let height = img.height;
+
+            // calculate the width and height, constraining the proportions
+            if (width > height) {
+                if (width > maxWidth) {
+                height = Math.round(height * maxWidth / width);
+                width = maxWidth;
+                }
+            } else {
+                if (height > maxHeight) {
+                width = Math.round(width * maxHeight / height);
+                height = maxHeight;
+                }
+            }
+
+            return [width, height];
+        }
+
+        function upload_foto_cierre(file){
+            $wire.upload('foto_cierre', file, (uploadedFilename) => {})
+        }
+    </script>
+    @endscript
 </div>
  

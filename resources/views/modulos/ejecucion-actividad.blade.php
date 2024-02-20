@@ -11,3 +11,6 @@
     @section('content')
         @livewire('modulos.ejecucion')
     @endsection
+    @section('scripts')
+        <script src="{{ asset('js/resize.js') }}"></script>
+    @endsection
