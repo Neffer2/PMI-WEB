@@ -63,7 +63,7 @@ class Ejecucion extends Component
 
     public function newPunto(){
         $this->validate([
-            'cod' => ['required', 'numeric', 'unique:puntos_venta'],
+            'cod' => ['required', 'unique:puntos_venta'],
             'punto_nom' => 'required|string'
         ]);
 
@@ -122,7 +122,7 @@ class Ejecucion extends Component
 
     public function updatedCod(){
         $this->validate([
-            'cod' => ['required', 'numeric', 'unique:puntos_venta']
+            'cod' => ['required', 'unique:puntos_venta']
         ]);
     }
     
