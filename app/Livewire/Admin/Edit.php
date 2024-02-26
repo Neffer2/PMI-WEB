@@ -4,7 +4,7 @@ namespace App\Livewire\Admin;
 
 use Livewire\Component;
 use App\Models\Venta;
-use App\Models\producto;
+use App\Models\Producto;
 use Illuminate\Support\Facades\Auth;
 use App\Models\EjecucionActividad;
  
