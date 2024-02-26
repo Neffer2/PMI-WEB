@@ -17,7 +17,7 @@
                                 <th>Ubicaci&oacute;n</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody> 
                             <tr>
                                 <td>{{ $ejecucion->punto->descripcion }}</td>
                                 <td>{{ $ejecucion->fechaVisita }}</td>
@@ -129,6 +129,7 @@
 
                                                 <th>Intervenci&oacute;n alternativas libres de humo</th>
                                                 <th>Intervenci&oacute;n diferencia fumar</th>
+                                                <th>Acciones</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -155,10 +156,123 @@
 
                                                     <td>{{ $venta->intervencion_alternativas_libres_humo }}</td>
                                                     <td>{{ $venta->intervencion_diferencia_fumar }}</td>                                                    
+                                                    <td>
+                                                        @if ($allowEdit)
+                                                            <button class="btn btn-danger"
+                                                            wire:click="eliminarVenta({{ $venta->id }})"
+                                                            wire:confirm="¿Estas seguro de elimninar esta venta?">Eliminar</button></td> 
+                                                        @endif
                                                 </tr>
                                             @endforeach
                                         </tbody>
                                     </table>
+                                </div>
+                                <button class="btn btn-primary mt-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_venta" aria-expanded="false" aria-controls="collapse_venta"> + </button>
+                                <div class="row collapse collapse-horizontal" id="collapse_venta">
+                                    <div class="col-md-6">
+                                        <label for="interes_inicial" class="bold label-ventas">Inter&eacute;s inicial</label>
+                                        <select id="interes_inicial" wire:model="interes_inicial" class="form-control">
+                                            <option value="" class="text-center">🔽</option>
+                                            @foreach ($productos as $producto)                                     
+                                                <option value="{{ $producto->id }}">{{ $producto->descripcion }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('interes_inicial')
+                                            <div id="interes_inicial" class="text-invalid">
+                                                {{ $message }}
+                                            </div>   
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="interes_final" class="bold label-ventas">Inter&eacute;s final</label>
+                                        <select id="interes_final" wire:model="interes_final" class="form-control">
+                                            <option value="" class="text-center">🔽</option>
+                                            @foreach ($productos as $producto)                                     
+                                                <option value="{{ $producto->id }}">{{ $producto->descripcion }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('interes_final')
+                                            <div id="interes_final" class="text-invalid">
+                                                {{ $message }}
+                                            </div>   
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group text-center">
+                                            <label for="presentacion" class="bold label-ventas">Presentaci&oacute;n</label>
+                                            <select id="presentacion" wire:model="presentacion" class="form-control">
+                                                <option value="" class="text-center">🔽</option>
+                                                <option value="1 Stick">1 Stick</option>
+                                                <option value="18s">18s</option>                                
+                                                <option value="10s">10s</option>
+                                                <option value="20s">20s</option>
+                                                <option value="X20">X20</option>
+                                                <option value="ONE">ONE</option>
+                                                <option value="DUO">DUO</option>
+                                                <option value="BONDS">BONDS</option>
+                                            </select>
+                                            @error('presentacion')
+                                                <div id="presentacion" class="text-invalid">
+                                                    {{ $message }}
+                                                </div>   
+                                            @enderror 
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group text-center">
+                                            <label for="genero" class="bold label-ventas">G&eacute;nero</label>
+                                            <select id="genero" wire:model="genero" class="form-control">
+                                                <option value="" class="text-center">🔽</option>
+                                                <option value="Masculino">Masculino</option>
+                                                <option value="Femenino">Femenino</option>
+                                            </select>
+                                            @error('genero')
+                                                <div id="genero" class="text-invalid">
+                                                    {{ $message }}
+                                                </div>   
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group text-center">
+                                            <label for="edad" class="bold label-ventas">Edad</label>
+                                            <select id="edad" wire:model="edad" class="form-control">
+                                                <option value="" class="text-center">🔽</option>
+                                                <option value="18-22">18-22</option>
+                                                <option value="23-27">23-27</option>
+                                                <option value="28-32">28-32</option>
+                                                <option value="33-37">33-37</option>
+                                                <option value="38-42">38-42</option>
+                                                <option value="43-47">43-47</option>
+                                                <option value="48-52">48-52</option>
+                                                <option value="53">Mas de 52</option>
+                                            </select> 
+                                            @error('edad')
+                                                <div id="edad" class="text-invalid">
+                                                    {{ $message }}
+                                                </div>   
+                                            @enderror 
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group text-center">
+                                            <label for="cantidad" class="bold label-ventas">Cantidad</label>
+                                            <input id="cantidad" type="number" wire:model="cantidad" class="form-control">
+                                            @error('cantidad')
+                                                <div id="cantidad" class="text-invalid">
+                                                    {{ $message }}
+                                                </div>   
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group mt-2">
+                                            @if ($allowEdit)
+                                                <button class="btn btn-primary"
+                                                wire:click="storeVenta">Crear venta</button>
+                                            @endif
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -198,7 +312,9 @@
     </div>
 
     <div class="container my-4">
-        <button class="btn btn-danger" wire:click="deleteRegistro" wire:confirm="¿Estas seguro de elimninar este registro?">Eliminar</button>
+        @if ($allowEdit)
+            <button class="btn btn-danger" wire:click="deleteRegistro" wire:confirm="¿Estas seguro de elimninar este registro?">Eliminar</button>
+        @endif
     </div>
 </div>
   
