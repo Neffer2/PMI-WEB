@@ -33,7 +33,7 @@ class Index extends Component
     public function mount(){
         $this->ciudades = Ciudad::select('id', 'description')->get();
 
-        $this->superAdmin = (Auth()->user()->id == 1 || Auth()->user()->id == 3) ? true : false;
+        $this->superAdmin = (Auth()->user()->id == 1 || Auth()->user()->id == 3 || Auth()->user()->id == 41) ? true : false;
         (!$this->superAdmin)? $this->ciudad = Auth()->user()->ciudad_id : $this->ciudad = [];
     }
 } 
