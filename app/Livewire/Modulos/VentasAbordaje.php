@@ -11,7 +11,7 @@ use App\Models\ProductoCiudad;
 use Illuminate\Support\Facades\Auth;
 
 class VentasAbordaje extends Component
-{
+{ 
     // Models ventas
     public $abordados, $interes_inicial, $interes_final, $presentacion, $genero, $edad, $cantidad, $preventa_iluma,
             $gusto_marca, $gusto_marca_otro,
@@ -47,7 +47,7 @@ class VentasAbordaje extends Component
         $this->combustiblesCompetencia = Producto::select('id', 'descripcion', 'competencia')->where([
             ['tipo', 1],
             ['competencia', 1],
-        ])->get();
+        ])->orderBy('descripcion', 'asc')->get();
     } 
 
     public function getDispositivos(){

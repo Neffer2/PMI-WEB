@@ -3,14 +3,14 @@
         <div class="py-2">
             <div class="row"> 
                 <div class="col-8">
-                    <input id="abordados" type="text" wire:model.live="abordados"
-                    class="form-control" placeholder="Personas abordadas" disabled>
+                    <input id="abordados" type="number" wire:model.live="abordados"
+                    class="form-control" placeholder="Personas abordadas">
                     @error('abordados')
                         <div id="abordados" class="text-invalid">
                             {{ $message }}
                         </div>   
                     @enderror
-                </div>
+                </div> 
                 <div class="col-4 d-flex justify-content-around">
                     <button wire:click="addAbordado" class="btn btn-primary">
                         <i class="fa-solid fa-plus"></i>
@@ -58,7 +58,7 @@
                             <option value="" class="text-center">🔽</option>
                             <optgroup label="PMI">
                                 @foreach ($combustibles as $combustible)                                     
-                                    @if ((($combustible->producto->id >= 24) && ($combustible->producto->id <= 28)) || (($combustible->producto->id >= 33) && ($combustible->producto->id <= 36)))
+                                    @if ($combustible->producto->tipo == 0)
                                         <option value="{{ $combustible->producto->id }}"> -- {{ $combustible->producto->descripcion }}</option>
                                     @else
                                         <option value="{{ $combustible->producto->id }}">{{ $combustible->producto->descripcion }}</option>
@@ -86,12 +86,30 @@
                             @if ($interes_final == 19)
                                 <option value="1 Stick">1 Stick</option>
                                 <option value="18s">18s</option>                                
-                            @elseif (($interes_final >= 20) && ($interes_final <= 23))
-                                <option value="ONE">ONE</option>
-                                <option value="DUO">DUO</option>
-                            @elseif (($interes_final >= 29) && ($interes_final <= 32))
-                                <option value="BONDS">BONDS</option>
-                            @elseif ((($interes_final >= 24) && ($interes_final <= 28)) || (($interes_final >= 33) && ($interes_final <= 36)))
+                            @elseif (($interes_final >= 20) && ($interes_final <= 21))
+                                <option value="GRAFITO">GRAFITO</option>
+                                <option value="PLATA">PLATA</option>
+                                <option value="TURQUESA">TURQUESA</option>
+                                <option value="ESCARLATA">ESCARLATA</option>
+                            @elseif ($interes_final == 22)
+                                <option value="BEIGE">BEIGE</option>
+                                <option value="GRIS">GRIS</option>
+                                <option value="VERDE">VERDE</option>
+                                <option value="MAGENTA">MAGENTA</option>
+                                <option value="AZUL">AZUL</option>
+                            @elseif ($interes_final == 23)
+                                <option value="DORADO">DORADO</option>
+                                <option value="NEGRO">NEGRO</option>
+                                <option value="VERDE">VERDE</option>
+                                <option value="BRONCE">BRONCE</option>
+                            @elseif ($interes_final == 29)
+                                <option value="VERDE">VERDE</option>
+                                <option value="ROJO">ROJO</option>
+                                <option value="GRIS">GRIS</option>
+                                <option value="AZUL">AZUL</option>
+                            @elseif ((($interes_final >= 24) && ($interes_final <= 28))
+                                    || (($interes_final >= 33) && ($interes_final <= 36))
+                                    ||  ($interes_final >= 66) && ($interes_final <= 70))
                                 <option value="X20">X20</option>
                             @else ($interes_final == 19)
                                 <option value="1 Stick">1 Stick</option>
@@ -316,9 +334,10 @@
                 </div>
             </div>
 
-            <div class="row mt-2">
+            <div class="row mt-2" x-data="ventas">
                 <div class="col-md-4">
-                    <button wire:click="storeVenta" class="btn btn-primary">Añadir venta</button>
+                    {{-- venta-stored --}}
+                    <button x-on:click="storeForm" wire:click="storeVenta" class="btn btn-primary">Añadir venta</button>
                 </div>
             </div> 
             <div class="row mt-2">
@@ -500,4 +519,41 @@
         </div>
     </div>
 </div>
+@script
+<script> 
+    Alpine.data('ventas', () => {
+        return {
+            storeForm() {
+                let ventasStored = JSON.parse(localStorage.getItem('ventas'));
+                
+                if (!ventasStored){
+                    ventasStored = [];
+                    
+                    venta = {
+                        'interes_inicial': $wire.interes_inicial,
+                        'interes_final': $wire.interes_final,
+                        'presentacion': $wire.presentacion,
+                        'genero': $wire.genero,
+                        'edad': $wire.edad,
+                        'cantidad': $wire.cantidad,
+                        'preventailuma': $wire.preventa_iluma,
+                        'gusto_marca': $wire.gusto_marca,
+                        'gusto_marca_otro': $wire.gusto_marca_otro,
+                        'gusto_marca_competencia': $wire.gusto_marca_competencia,
+                        'gusto_marca_competencia_otro': $wire.gusto_marca_competencia_otro,
+                        'mesaje_dispositivos_entregado': $wire.mesaje_dispositivos_entregado,
+                        'marca_mesaje_dispositivos': $wire.marca_mesaje_dispositivos,
+                        'mesaje_cigarrillos_entregado': $wire.mesaje_cigarrillos_entregado,
+                        'marca_mesaje_cigarrillos': $wire.marca_mesaje_cigarrillos,
+                        'intervencion_alternativas_libres_humo': $wire.intervencion_alternativas_libres_humo,
+                        'intervencion_diferencia_fumar': $wire.intervencion_diferencia_fumar
+                    }   
+
+                    localStorage.setItem('ventas', JSON.stringify(venta));
+                }             
+            },
+        }
+    })
+</script>
+@endscript
  
