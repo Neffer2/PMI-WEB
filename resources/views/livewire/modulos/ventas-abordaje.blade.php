@@ -31,10 +31,15 @@
                             <option value="" class="text-center">🔽</option>
                             <optgroup label="PMI">
                                 @foreach ($combustibles as $combustible)                                     
-                                    @if ((($combustible->producto->id >= 24) && ($combustible->producto->id <= 28)) || (($combustible->producto->id >= 33) && ($combustible->producto->id <= 36)))
+                                    @if ($combustible->producto->tipo != 0)
+                                        <option value="{{ $combustible->producto->id }}">{{ $combustible->producto->descripcion }}</option>                                    
+                                    @endif
+                                @endforeach
+                            </optgroup>
+                            <optgroup label="PMI - CONSUMIBLES">
+                                @foreach ($combustibles as $combustible)                                     
+                                    @if ($combustible->producto->tipo == 0)
                                         <option value="{{ $combustible->producto->id }}"> -- {{ $combustible->producto->descripcion }}</option>
-                                    @else
-                                        <option value="{{ $combustible->producto->id }}">{{ $combustible->producto->descripcion }}</option>
                                     @endif
                                 @endforeach
                             </optgroup>
@@ -58,10 +63,15 @@
                             <option value="" class="text-center">🔽</option>
                             <optgroup label="PMI">
                                 @foreach ($combustibles as $combustible)                                     
+                                    @if ($combustible->producto->tipo != 0)
+                                        <option value="{{ $combustible->producto->id }}">{{ $combustible->producto->descripcion }}</option>                                    
+                                    @endif
+                                @endforeach
+                            </optgroup>
+                            <optgroup label="PMI - CONSUMIBLES">
+                                @foreach ($combustibles as $combustible)                                     
                                     @if ($combustible->producto->tipo == 0)
                                         <option value="{{ $combustible->producto->id }}"> -- {{ $combustible->producto->descripcion }}</option>
-                                    @else
-                                        <option value="{{ $combustible->producto->id }}">{{ $combustible->producto->descripcion }}</option>
                                     @endif
                                 @endforeach
                             </optgroup>
@@ -107,14 +117,16 @@
                                 <option value="ROJO">ROJO</option>
                                 <option value="GRIS">GRIS</option>
                                 <option value="AZUL">AZUL</option>
-                            @elseif ((($interes_final >= 24) && ($interes_final <= 28))
-                                    || (($interes_final >= 33) && ($interes_final <= 36))
-                                    ||  ($interes_final >= 66) && ($interes_final <= 70))
+                            @elseif (($interes_final >= 24) && ($interes_final <= 28) || ($interes_final >= 33) && ($interes_final <= 36) ||
+                                    ($interes_final >= 64) && ($interes_final <= 69) || ($interes_final >= 70) && ($interes_final <= 74))
                                 <option value="X20">X20</option>
                             @else ($interes_final == 19)
                                 <option value="1 Stick">1 Stick</option>
                                 <option value="10s">10s</option>
                                 <option value="20s">20s</option>
+                                @if ($interes_final >= 7 && $interes_final <= 10)
+                                    <option value="25s">25s</option>
+                                @endif
                             @endif
                         </select>
                         @error('presentacion')
